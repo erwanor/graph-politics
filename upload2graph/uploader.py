@@ -39,5 +39,27 @@ def format_dict_to_str(hashtable):
 	string = ''.join([string[:-1], '}'])
 	return string
 
+def upload_congress(session):
+	congress_json = store_file_in_memory(CONGRESS_LIST_DATASET)
+	congress_data = json.loads(congress_json)
+	for chamber in congress_data:
+		for politician in congress_data[chamber]:
+			chamber_cap = chamber_noun(chamber)
+			party       = party_name(politician['party'])
+			state       = politician['state']
+			remove_redundant_entries(politician)
+			politician_str = format_dict_to_str(politician)
+			CYPHER_QUERY = ''.join(['CREATE (n: Politician:Congress:', chamber_cap, ':', party, politician_str, ')'])
+			session.run(CYPHER_QUERY)
+	return
+
+db_username = os.environ['NEO4J_USERNAME']
+db_password = os.environ['NEO4J_PASSWORD']
+db_server   = os.environ['NEO4J_SERVER_URI']
+
+driver  = GraphDatabase.driver(db_server, auth = basic_auth(db_username, db_password))
+session = driver.session()
+
+upload_congress(session)
 
 session.close()
