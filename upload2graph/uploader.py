@@ -5,11 +5,27 @@ import json
 CRD_PATH              = os.path.dirname(os.path.realpath(__file__))
 CONGRESS_LIST_DATASET = ''.join([CRD_PATH, '/../processed_data/congress/congress_list_excerpt.json'])
 
-def upload_congress():
 def store_file_in_memory(path):
 	with open(path, 'r') as srcfile:
 		file_string = srcfile.read().replace('\n', '')
 	return file_string
+
+def chamber_noun(chamber):
+	if chamber == 'house':
+		return 'Representative'
+	elif chamber == 'senate':
+		return 'Senator'
+	else:
+		return 'Official'
+
+def party_name(abr):
+	if abr == 'R':
+		return 'Republican'
+	elif abr == 'D':
+		return 'Democrat'
+	else:
+		return 'Independent'
+
 	return
 
 db_username = os.environ["NEO4J_USERNAME"]
