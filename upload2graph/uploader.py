@@ -26,12 +26,15 @@ def party_name(abr):
 	else:
 		return 'Independent'
 
+def remove_redundant_entries(politician):
+	del politician['chamber']
+	del politician['party']
+	del politician['state']
 	return
 
 db_username = os.environ["NEO4J_USERNAME"]
 db_password = os.environ["NEO4J_PASSWORD"]
 db_server   = os.environ["NEO4J_SERVER_URI"]
 
-driver = GraphDatabase.driver(db_server, auth = basic_auth(db_username, db_password))
 
 session.close()
