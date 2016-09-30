@@ -6,6 +6,10 @@ CRD_PATH              = os.path.dirname(os.path.realpath(__file__))
 CONGRESS_LIST_DATASET = ''.join([CRD_PATH, '/../processed_data/congress/congress_list_excerpt.json'])
 
 def upload_congress():
+def store_file_in_memory(path):
+	with open(path, 'r') as srcfile:
+		file_string = srcfile.read().replace('\n', '')
+	return file_string
 	return
 
 db_username = os.environ["NEO4J_USERNAME"]
