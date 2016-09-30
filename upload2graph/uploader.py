@@ -1,8 +1,9 @@
 from neo4j.v1 import GraphDatabase, basic_auth
 import os
+import json
 
-CRD_PATH      = os.path.dirname(os.path.realpath(__file__))
-CONGRESS_LIST = ''.join([CRD_PATH, '/../processed_data/congress/legislators_excerpt.json'])
+CRD_PATH              = os.path.dirname(os.path.realpath(__file__))
+CONGRESS_LIST_DATASET = ''.join([CRD_PATH, '/../processed_data/congress/congress_list_excerpt.json'])
 
 def upload_congress():
 	return
