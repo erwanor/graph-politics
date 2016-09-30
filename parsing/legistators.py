@@ -1,6 +1,8 @@
+import os
 import json
 
-LEGISLATOR_DATASET = "../datasets/congress/legislators_excerpt.json"
+CRD_PATH           = os.path.dirname(os.path.realpath(__file__))
+LEGISLATOR_DATASET = ''.join([CRD_PATH, '/../datasets/congress/legislators_excerpt.json'])
 
 def create_legislator(first, last, chamber, state, party, fec_id):
 	return {'FEC_ID'     : fec_id,
