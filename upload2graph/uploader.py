@@ -32,9 +32,12 @@ def remove_redundant_entries(politician):
 	del politician['state']
 	return
 
-db_username = os.environ["NEO4J_USERNAME"]
-db_password = os.environ["NEO4J_PASSWORD"]
-db_server   = os.environ["NEO4J_SERVER_URI"]
+def format_dict_to_str(hashtable):
+	string = '{'
+	for k in hashtable:
+		string = ''.join([string, k, ':', '"', hashtable[k], '"', ','])
+	string = ''.join([string[:-1], '}'])
+	return string
 
 
 session.close()
