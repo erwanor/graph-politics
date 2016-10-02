@@ -65,7 +65,9 @@ def main_political_nodes(roots, graph):
 	'''Create main political nodes/relationships; graph building blocks'''
 	store = {}
 	for entry in roots:
-		store.update({ entry[1]: Node(entry[0], name=entry[1]) })
+		# Store references to the node objects we create
+		# They will be re-used to create relationships
+		store.update({ entry[1] : Node(entry[0], name=entry[1]) })
 		graph.create(store[entry[1]])
 		print 'Create Node -  ', entry[0], ':', entry[1]
 
@@ -96,9 +98,14 @@ def build_congress(root_nodes, graph):
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes['Congress']))
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes[partyName]))
 
+POLITICAL_NODES = [('Institution', 'Congress'), ('Chamber', 'Senate'),
+		('Chamber', 'House of Representatives'), 
+		('Party', 'Republican'), ('Party', 'Democrat'),
+		('Party', 'Independent')]
+
 graph_db_auth(NEO4J_SERVER_PORT, NEO4J_DB_USERNAME, NEO4J_DB_PASSWORD)
 graph = Graph()
 clear_graph(graph)
-root_nodes = main_political_nodes([('Institution', 'Congress'), ('Chamber', 'Senate'), ('Chamber', 'House of Representatives'), 
-	('Party', 'Republican'), ('Party', 'Democrat'), ('Party', 'Independent')], graph)
+
+root_nodes = main_political_nodes(POLITICAL_NODES, graph)
 build_congress(root_nodes, graph)
