@@ -4,7 +4,7 @@ A semantic network reprensenting various connections between US politicians/Cong
 
 ### Data sources:
 
-The US Government Open Data Initiative, the Federal Election Comission (FEC), Wikileaks and a various public registries for which I am building scrappers.
+The US Government Open Data Initiative, the Federal Election Comission (FEC), Wikileaks and various public registries for which I am building scrappers.
 
 ### Objective:
 
