@@ -11,6 +11,9 @@ def read_file_by_line(path):
 		lines = srcfile.read().split('\n')
 	return lines
 
+def create_lobbying_agency(category, target, lobbyists):
+	return { 'category': category, 'target': target, 'lobbyists': lobbyists }
+
 def process_lobbyists(lobbying_data):
 	lines = read_file_by_line(LOBBYST_DATASET)
 	lines.pop()
@@ -37,3 +40,9 @@ def process_lobbyists(lobbying_data):
 LOBBYING_AGENCY_DATASET = get_path('/../datasets/lobbying/lob_agency.txt')
 LOBBYST_DATASET 	= get_path('/../datasets/lobbying/lob_lobbyist.txt')
 LOBBYING_CLIENT		= get_path('/../datasets/lobbying/lob_lobbying.txt')
+lobbying_data = process_agencies({})
+
+json_to_dump  = { 'lobbying': [lobbying_data] }
+dumped        = json.dumps(json_to_dump, sort_keys=True, indent=4, separators=(',', ':'), ensure_ascii=False)
+
+print unicode(dumped, errors='ignore')
