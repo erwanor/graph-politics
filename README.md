@@ -14,5 +14,15 @@ At a later stage, I intend to work with the Stanford CoreNLP library to classify
 
 This is a "toy-project" that I have started because I have an interest in big data information retrieval, graph databases and semantic networks. My work is published under an MIT licence and might interest data journalists or concerned citizens.
 
+### Directory structure
+
+ - datasets/ : raw data about congress (name, party affiliation, bill (co-) sponsored, voting history etc.), registered lobbying agencies (their employees, expenditures, targets and bills)
+ - processed_data/ : data that is ready to be uploaded to the graph db
+- parsing/ : scripts used to process the raw datasets; reads from datasets/* and outputs to processed_data/
+ - upload2graph/ : scripts to create nodes/relationships in the db; reads from processed_data/
+ - env/ : configuration scripts
+ - fraud_detection/ : algorithms run on the semantic network to extract/match cyclic patterns
+
 #### Early-stage example:
 ![Congress](https://i.imgur.com/UI7Jeiy.png "An excerpt of a graph representing basic connections between congressmen and their political parties and office")
+Cypher query: MATCH (n) RETURN n
