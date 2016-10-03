@@ -5,6 +5,12 @@ CRD_PATH           = os.path.dirname(os.path.realpath(__file__))
 
 def get_path(path_to_dataset):
 	return ''.join([CRD_PATH, path_to_dataset])
+
+def read_file_by_line(path):
+	with open(path, 'r') as srcfile:
+		lines = srcfile.read().split('\n')
+	return lines
+
 def process_lobbyists(lobbying_data):
 	lines = read_file_by_line(LOBBYST_DATASET)
 	lines.pop()
