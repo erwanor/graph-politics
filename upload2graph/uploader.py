@@ -114,6 +114,10 @@ def build_lobbying(root_nodes, graph):
 			agency_target    = agencies[uniqId]['target']
 			agency_lobbyists = agencies[uniqId]['lobbyists']
 
+			agencyNode       = Node('Lobbying Agency', name=agency_name, LUID=uniqId, category=agency_cat)
+			
+			for employee in agency_lobbyists:
+				employeeNode = Node('Lobbyist', full_name=employee)
 	return
 
 POLITICAL_NODES = [('Institution', 'Congress'), ('Chamber', 'Senate'),
