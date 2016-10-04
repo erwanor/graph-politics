@@ -47,12 +47,28 @@ def process_lobbyists(lobbying_data):
 		lobbying_data[lobbyist_agency]['lobbyists'].append(lobbyist_name.title())
 	return lobbying_data
 
+def process_lobbying_clients(lobbying_data):
+	lines = read_file_by_line(LOBBYING_MAIN)
+	lines.pop()
+
+	for line in lines:
+		parsed_data	= line.split('|')
+		if len(parsed_data) <= 1:
+			continue
+		lobbying_agency_uniqId = parsed_data[1]
+		lobbying_agency_name   = parsed_data[3]
+		if lobbying_data.has_key(lobbying_agency_uniqId) is False:
+			lobbying_data.update({ lobbying_agency_uniqId: create_lobbying_agency('000', '', [])})
+		lobbying_data[lobbying_agency_uniqId]['agency_name'] = lobbying_agency_name
+	return lobbying_data
+
 LOBBYING_AGENCY_DATASET = get_path('/../datasets/lobbying/lob_agency.txt')
 LOBBYIST_DATASET 	= get_path('/../datasets/lobbying/lob_lobbyist.txt')
 LOBBYING_MAIN		= get_path('/../datasets/lobbying/lob_lobbying.txt')
 
 lobbying_data = process_agencies({})
 lobbying_data = process_lobbyists(lobbying_data)
+lobbying_data = process_lobbying_clients(lobbying_data)
 
 json_to_dump  = { 'lobbying': [lobbying_data] }
 dumped        = json.dumps(json_to_dump, sort_keys=True, indent=4, separators=(',', ':'), ensure_ascii=False)
