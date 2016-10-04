@@ -37,4 +37,4 @@ Number of vertices (nodes) in our graph as of October 4th. 2016
  
 Number of edges (relationships) in our graph as of October 4th. 2016:
 
-- MATCH ()-[r]-() RETURN COUNT(r): 4,608,010
+- MATCH ()-[r]-() RETURN COUNT(r): 4,608,010 relationships
