@@ -6,6 +6,7 @@ import json
 # Generate path to dataset using the current reading diretory's realpath
 CRD_PATH              = dirname(realpath(__file__))
 CONGRESS_LIST_DATASET = ''.join([CRD_PATH, '/../processed_data/congress/congress_list_excerpt.json'])
+LOBBYING_DATASET      = ''.join([CRD_PATH, '/../processed_data/lobbying/lobbying_data.json'])
 
 # Graph database authentication infos are stored in environment variables
 NEO4J_SERVER_PORT = ':'.join([env_vars['NEO4J_SERVER_NAME'], env_vars['NEO4J_SERVER_PORT']])
