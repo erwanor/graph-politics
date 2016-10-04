@@ -134,3 +134,4 @@ clear_graph(graph)
 
 root_nodes = main_political_nodes(POLITICAL_NODES, graph)
 build_congress(root_nodes, graph)
+build_lobbying([], graph)
