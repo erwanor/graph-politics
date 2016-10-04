@@ -70,7 +70,7 @@ lobbying_data = process_agencies({})
 lobbying_data = process_lobbyists(lobbying_data)
 lobbying_data = process_lobbying_clients(lobbying_data)
 
-json_to_dump  = { 'lobbying': [lobbying_data] }
+json_to_dump  = { 'agencies': [lobbying_data] }
 dumped        = json.dumps(json_to_dump, sort_keys=True, indent=4, separators=(',', ':'), ensure_ascii=False)
 
 print unicode(dumped, errors='ignore')
