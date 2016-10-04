@@ -67,7 +67,7 @@ def main_political_nodes(roots, graph):
 	for entry in roots:
 		# Store references to the node objects we create
 		# They will be re-used to create relationships
-		store.update({ entry[1] : Node(entry[0], name=entry[1]) })
+		store.update({ entry[1]: Node(entry[0], name=entry[1]) })
 		graph.create(store[entry[1]])
 		print 'Create Node -  ', entry[0], ':', entry[1]
 
@@ -97,6 +97,7 @@ def build_congress(root_nodes, graph):
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes[chamberName]))
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes['Congress']))
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes[partyName]))
+	return
 
 POLITICAL_NODES = [('Institution', 'Congress'), ('Chamber', 'Senate'),
 		('Chamber', 'House of Representatives'), 
