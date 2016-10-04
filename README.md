@@ -25,4 +25,16 @@ This is a "toy-project" that I have started because I have an interest in big da
 
 #### Early-stage example:
 ![Congress](https://i.imgur.com/UI7Jeiy.png "An excerpt of a graph representing basic connections between congressmen and their political parties and office")
-Cypher query: MATCH (n) RETURN n
+![CongressAndLobbying](https://i.imgur.com/V3b5zYY.png "Congressmen, lobbyists and parties")
+![Lobbying](https://i.imgur.com/vzWIZZC.jpg "Lobbying agencies and their employees")
+
+
+#### Some metrics:
+
+Number of vertices (nodes) in our graph as of October 4th. 2016
+
+ - MATCH (n) RETURN COUNT(n): 3,314,779 nodes
+ 
+Number of edges (relationships) in our graph as of October 4th. 2016:
+
+- MATCH ()-[r]-() RETURN COUNT(r): 4,608,010 relationships
