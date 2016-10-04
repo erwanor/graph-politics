@@ -120,6 +120,7 @@ def build_lobbying(root_nodes, graph):
 			for employee in agency_lobbyists:
 				employeeNode = Node('Lobbyist', full_name=employee)
 				graph.create(employeeNode)
+				graph.create(Relationship(employeeNode, 'WORKS_FOR', agencyNode))
 	return
 
 POLITICAL_NODES = [('Institution', 'Congress'), ('Chamber', 'Senate'),
