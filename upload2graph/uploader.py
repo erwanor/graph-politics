@@ -102,6 +102,18 @@ def build_congress(root_nodes, graph):
 
 def build_lobbying(root_nodes, graph):
 	'''Generate lobbying nodes/relationships from the lobbying dataset'''
+	lobbying_json = store_file_in_memory(LOBBYING_DATASET)
+	lobbying_data = json.loads(lobbying_json)
+	for agencies in lobbying_data['agencies']:
+		for uniqId in agencies:
+			if agencies[uniqId].has_key('agency_name') is False:
+				agency_name = 'Unknown'
+			else:
+				agency_name      = agencies[uniqId]['agency_name']
+			agency_cat       = agencies[uniqId]['category']
+			agency_target    = agencies[uniqId]['target']
+			agency_lobbyists = agencies[uniqId]['lobbyists']
+
 	return
 
 POLITICAL_NODES = [('Institution', 'Congress'), ('Chamber', 'Senate'),
