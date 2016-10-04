@@ -20,12 +20,12 @@ def process_agencies(lobbying_data):
 
 	for line in lines:
 		parsed_data 	= line.split('|')
-		lobbying_info   = create_lobbying_agency(parsed_data[3], parsed_data[5], [])
+		lobbying_info   = create_lobbying_agency(parsed_data[3][:-1], parsed_data[5], [])
 		lobbying_data.update( { parsed_data[1]: lobbying_info })
 	return lobbying_data
 
 def process_lobbyists(lobbying_data):
-	lines = read_file_by_line(LOBBYST_DATASET)
+	lines = read_file_by_line(LOBBYIST_DATASET)
 	lines.pop()
 
 	for line in lines:
@@ -48,8 +48,8 @@ def process_lobbyists(lobbying_data):
 	return lobbying_data
 
 LOBBYING_AGENCY_DATASET = get_path('/../datasets/lobbying/lob_agency.txt')
-LOBBYST_DATASET 	= get_path('/../datasets/lobbying/lob_lobbyist.txt')
-LOBBYING_CLIENT		= get_path('/../datasets/lobbying/lob_lobbying.txt')
+LOBBYIST_DATASET 	= get_path('/../datasets/lobbying/lob_lobbyist.txt')
+LOBBYING_MAIN		= get_path('/../datasets/lobbying/lob_lobbying.txt')
 
 lobbying_data = process_agencies({})
 lobbying_data = process_lobbyists(lobbying_data)
