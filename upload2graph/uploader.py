@@ -100,6 +100,10 @@ def build_congress(root_nodes, graph):
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes[partyName]))
 	return
 
+def build_lobbying(root_nodes, graph):
+	'''Generate lobbying nodes/relationships from the lobbying dataset'''
+	return
+
 POLITICAL_NODES = [('Institution', 'Congress'), ('Chamber', 'Senate'),
 		('Chamber', 'House of Representatives'), 
 		('Party', 'Republican'), ('Party', 'Democrat'),
