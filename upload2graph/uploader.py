@@ -1,6 +1,7 @@
-from py2neo import authenticate as graph_db_auth, Graph, Node, Relationship
-from os import environ as env_vars
+from py2neo  import authenticate as graph_db_auth, Graph, Node, Relationship
+from os      import environ as env_vars
 from os.path import dirname, realpath
+from uuid    import uuid4
 import json
 
 # Generate path to dataset using the current reading diretory's realpath
