@@ -48,10 +48,6 @@ def party_name(abrv):
 	else:
 		return 'Independent'
 
-def remove_redundant_entries(politician):
-	del politician['chamber']
-	del politician['party']
-	del politician['state']
 	return
 
 def clear_graph(graph):
@@ -92,7 +88,6 @@ def build_congress(root_nodes, graph):
 			fullName       = ' '.join([firstName, lastName])
 			chamberName    = chamber_name(chamber)
 			partyName      = party_name(politician['party'])
-			remove_redundant_entries(politician)
 			politicianNode = Node('Politician', full_name=fullName, PUID=P_UID)
 			graph.create(politicianNode)
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes[chamberName]))
