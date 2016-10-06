@@ -51,6 +51,20 @@ def party_name(abrv):
 
 def reset_tx(graph):
 	return (graph.begin(), 0)
+
+def header_transaction(tx_counter, tx_committed=0):
+	if tx_counter == 0:
+		print '############################################'
+		print '##        NEW TRANSACTION STARTED         ##'
+		print '##          TARGET: 45K QUERIES           ##'
+		print '##               tx num:', tx_committed 
+		print '############################################'
+	else:
+		print '############################################'
+		print '##    TRANSACTION COMMITTED TO THE GRAPH  ##'
+		print '##            requests#: ', tx_counter, '           ##'
+		print '##               tx num:', tx_committed 
+		print '############################################'
 	return
 
 def clear_graph(graph):
@@ -107,6 +121,7 @@ def build_lobbying(root_nodes, graph):
 	tx, tx_counter     = init_tx(graph)
 	tx_committed       = 0
 	MAX_INSERTS_PER_TX = 45*1000 # Allow up to 45K write operations per transaction
+	header_transaction(tx_counter)
 	for agencies in lobbying_data['agencies']:
 		for uniqId in agencies:
 			if tx_counter >= MAX_INSERTS_PER_TX:
