@@ -54,7 +54,7 @@ def reset_tx(graph):
 	return
 
 def clear_graph(graph):
-	'''Delete all nodes and relationships from the graph databse'''
+	'''Delete all nodes and relationships from the graph db'''
 	QUERY_QUEUE = ['MATCH (n)-[r]-() DELETE n,r', 'MATCH (n) DELETE n']
 	for CYPHER_QUERY in QUERY_QUEUE:
 		graph.run(CYPHER_QUERY)
@@ -123,7 +123,7 @@ def build_lobbying(root_nodes, graph):
 			agency_cat       = agencies[uniqId]['category']
 			agency_target    = agencies[uniqId]['target']
 			agency_lobbyists = agencies[uniqId]['lobbyists']
-
+	
 			agencyNode       = Node('Lobbying Agency', name=agency_name, LUID=uniqId, category=agency_cat)
 			tx.create(agencyNode)
 			print 'Create Node - Lobbying Agency:', agency_name, 'with LUID = ', uniqId 
