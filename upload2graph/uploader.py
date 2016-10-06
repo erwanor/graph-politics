@@ -77,13 +77,9 @@ def build_congress(root_nodes, graph):
 	'''Generate congress nodes/relationships from the congress list dataset'''
 	congress_json = store_file_in_memory(CONGRESS_LIST_DATASET)
 	congress_data = json.loads(congress_json)
-	# Hacky #######
-	P_UID = 0
-	# TO REMOVE ###
 	for chamber in congress_data:
 		for politician in congress_data[chamber]:
-			#P_UID = RANDOM
-			P_UID = P_UID + 1
+			P_UID          = str(uuid4())
 			firstName      = politician['first_name']
 			lastName       = politician['last_name']
 			fullName       = ' '.join([firstName, lastName])
