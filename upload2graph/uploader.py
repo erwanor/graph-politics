@@ -49,6 +49,8 @@ def party_name(abrv):
 	else:
 		return 'Independent'
 
+def reset_tx(graph):
+	return (graph.begin(), 0)
 	return
 
 def clear_graph(graph):
@@ -77,8 +79,8 @@ def main_political_nodes(roots, graph):
 
 def build_congress(root_nodes, graph):
 	'''Generate congress nodes/relationships from the congress list dataset'''
-	congress_json = store_file_in_memory(CONGRESS_LIST_DATASET)
-	congress_data = json.loads(congress_json)
+	congress_json  = store_file_in_memory(CONGRESS_LIST_DATASET)
+	congress_data  = json.loads(congress_json)
 	for chamber in congress_data:
 		for politician in congress_data[chamber]:
 			P_UID          = str(uuid4())
@@ -100,28 +102,43 @@ def build_congress(root_nodes, graph):
 
 def build_lobbying(root_nodes, graph):
 	'''Generate lobbying nodes/relationships from the lobbying dataset'''
-	lobbying_json = store_file_in_memory(LOBBYING_DATASET)
-	lobbying_data = json.loads(lobbying_json)
+	lobbying_json      = store_file_in_memory(LOBBYING_DATASET)
+	lobbying_data      = json.loads(lobbying_json)
+	tx, tx_counter     = init_tx(graph)
+	tx_committed       = 0
+	MAX_INSERTS_PER_TX = 45*1000 # Allow up to 45K write operations per transaction
 	for agencies in lobbying_data['agencies']:
 		for uniqId in agencies:
+			if tx_counter >= MAX_INSERTS_PER_TX:
+				tx.commit()
+				header_transaction(tx_counter, tx_committed)
+				tx_committed += 1
+				tx, tx_counter 	   = init_tx(graph)
+
 			if agencies[uniqId].has_key('agency_name') is False:
 				agency_name = 'Unknown'
 			else:
 				agency_name      = agencies[uniqId]['agency_name']
+
 			agency_cat       = agencies[uniqId]['category']
 			agency_target    = agencies[uniqId]['target']
 			agency_lobbyists = agencies[uniqId]['lobbyists']
 
 			agencyNode       = Node('Lobbying Agency', name=agency_name, LUID=uniqId, category=agency_cat)
-			graph.create(agencyNode)
+			tx.create(agencyNode)
 			print 'Create Node - Lobbying Agency:', agency_name, 'with LUID = ', uniqId 
 			
 			for employee in agency_lobbyists:
 				employeeNode = Node('Lobbyist', full_name=employee)
-				graph.create(employeeNode)
-				graph.create(Relationship(employeeNode, 'WORKS_FOR', agencyNode))
+				tx.create(employeeNode)
 				print '    Create Node - Lobbyst:', employee
+				tx.create(Relationship(employeeNode, 'WORKS_FOR', agencyNode))
 				print '    Create Relationship - Lobbyist:', employee, ' --[:WORKS_FOR]--> Lobbying Agency:', agency_name
+				tx_counter += 2
+			tx_counter += 1
+		if tx_counter > 0:
+			tx.commit()
+			tx_counter = 0
 	return
 
 POLITICAL_NODES = [('Institution', 'Congress'), ('Chamber', 'Senate'),
@@ -135,4 +152,4 @@ clear_graph(graph)
 
 root_nodes = main_political_nodes(POLITICAL_NODES, graph)
 build_congress(root_nodes, graph)
-build_lobbying([], graph)
+build_lobbying(root_nodes, graph)
