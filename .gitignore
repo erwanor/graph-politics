@@ -6,3 +6,4 @@
 *.yaml
 *.swp
 venv/*
+lcl.*
