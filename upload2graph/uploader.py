@@ -49,7 +49,7 @@ def party_name(abrv):
 	else:
 		return 'Independent'
 
-def reset_tx(graph):
+def init_tx(graph):
 	return (graph.begin(), 0)
 
 def header_transaction(tx_counter, tx_committed=0):
@@ -83,12 +83,12 @@ def main_political_nodes(roots, graph):
 		# They will be re-used to create relationships
 		store.update({ entry[1]: Node(entry[0], name=entry[1]) })
 		graph.create(store[entry[1]])
-		print 'Create Node -  ', entry[0], ':', entry[1]
+		#print 'Create Node -  ', entry[0], ':', entry[1]
 
 	graph.create(Relationship(store['Senate'], 'IS_A_CHAMBER_OF', store['Congress']))
-	print 'Create Relationship -  Chamber:Senate --[:IS_A_CHAMBER_OF]--> Institution:Congress'
+	#print 'Create Relationship -  Chamber:Senate --[:IS_A_CHAMBER_OF]--> Institution:Congress'
 	graph.create(Relationship(store['House of Representatives'], 'IS_A_CHAMBER_OF', store['Congress']))
-	print 'Create Relationship -  Chamber:House of Representatives --[:IS_A_CHAMBER_OF]--> Institution:Congress'
+	#print 'Create Relationship -  Chamber:House of Representatives --[:IS_A_CHAMBER_OF]--> Institution:Congress'
 	return store
 
 def build_congress(root_nodes, graph):
@@ -105,13 +105,13 @@ def build_congress(root_nodes, graph):
 			partyName      = party_name(politician['party'])
 			politicianNode = Node('Politician', full_name=fullName, PUID=P_UID)
 			graph.create(politicianNode)
-			print 'Create Node -  Politician:', fullName
+			#print 'Create Node -  Politician:', fullName
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes[chamberName]))
-			print 'Create Relationship -  Politician:', fullName, ' --[:MEMBER_OF]--> Chamber:', chamberName
+			#print 'Create Relationship -  Politician:', fullName, ' --[:MEMBER_OF]--> Chamber:', chamberName
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes['Congress']))
-			print 'Create Relationship -  Politician:', fullName, ' --[:MEMBER_OF]--> Institution:Congress'
+			#print 'Create Relationship -  Politician:', fullName, ' --[:MEMBER_OF]--> Institution:Congress'
 			graph.create(Relationship(politicianNode, 'MEMBER_OF', root_nodes[partyName]))
-			print 'Create Relationship -  Politician:', fullName, ' --[:MEMBER_OF]--> Party:', partyName
+			#print 'Create Relationship -  Politician:', fullName, ' --[:MEMBER_OF]--> Party:', partyName
 	return
 
 def build_lobbying(root_nodes, graph):
@@ -141,14 +141,14 @@ def build_lobbying(root_nodes, graph):
 	
 			agencyNode       = Node('Lobbying Agency', name=agency_name, LUID=uniqId, category=agency_cat)
 			tx.create(agencyNode)
-			print 'Create Node - Lobbying Agency:', agency_name, 'with LUID = ', uniqId 
+			#print 'Create Node - Lobbying Agency:', agency_name, 'with LUID = ', uniqId 
 			
 			for employee in agency_lobbyists:
 				employeeNode = Node('Lobbyist', full_name=employee)
 				tx.create(employeeNode)
-				print '    Create Node - Lobbyst:', employee
+				#print '    Create Node - Lobbyst:', employee
 				tx.create(Relationship(employeeNode, 'WORKS_FOR', agencyNode))
-				print '    Create Relationship - Lobbyist:', employee, ' --[:WORKS_FOR]--> Lobbying Agency:', agency_name
+				#print '    Create Relationship - Lobbyist:', employee, ' --[:WORKS_FOR]--> Lobbying Agency:', agency_name
 				tx_counter += 2
 			tx_counter += 1
 		if tx_counter > 0:
