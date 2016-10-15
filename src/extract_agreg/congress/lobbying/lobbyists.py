@@ -135,6 +135,29 @@ def map_SOPR_to_firm():
 
 def is_a_duplicate(tracking_store, key_to_check):
     return tracking_store.has_key(key_to_check)
+
+
+def process_lobbyists(raw_lines, lobbyists_store, lobbying_firms):
+    """
+	Process raw data and return a list of dictionnaries that are ready to be written to a CSV
+	"""
+    all_lobbyists = []
+    tracking = {}
+    for line in raw_lines:
+        if len(line) < 5:
+            continue
+
+        data = [v for (k, v) in enumerate(line.split('|')) if k % 2 != 0]
+        lobbyist = create_lobbyist(data, lobbyists_store, lobbying_firms)
+
+        if is_a_duplicate(tracking, data[3]) is True:
+            continue
+        else:
+            tracking[data[3]] = True
+            all_lobbyists.append(lobbyist)
+
+    return all_lobbyists
+
 # Overview:
 # 0. Map lobbyists LIDs (Lobbyist IDentifiers) to CUIDs (Cross-data Unique IDentifiers)
 # 1. Prepare the rows of the csv lobbyist store
