@@ -51,6 +51,29 @@ def create_lobbyist(cleaned_data, lobbyists_store, lobbying_firms):
         'record_year': year
     }
 
+
+def from_dataset_index_by(csv_file,
+                          key_i,
+                          value_i,
+                          delimiter='|',
+                          quoting=csv.QUOTE_NONE):
+    """
+	Read and parse a csv_file and index the value_i-th column by the key_i-th column.
+	Return a dictionnary
+	"""
+    store = {}
+    with open(csv_file, 'rb') as f:
+        reader = csv.reader(f, delimiter=delimiter, quoting=quoting)
+        for entry in reader:
+            entry = filter(lambda x: x != '' and x != ',', entry)
+            key = entry[key_i]
+            value = entry[value_i]
+            if store.has_key(key):
+                store[key].append(value)
+            else:
+                store[key] = [value]
+    return store
+
 # Overview:
 # 0. Map lobbyists LIDs (Lobbyist IDentifiers) to CUIDs (Cross-data Unique IDentifiers)
 # 1. Prepare the rows of the csv lobbyist store
