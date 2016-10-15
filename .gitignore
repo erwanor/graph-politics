@@ -5,5 +5,6 @@
 *.xls
 *.yaml
 *.swp
+*.pyc
 venv/*
 lcl.*
