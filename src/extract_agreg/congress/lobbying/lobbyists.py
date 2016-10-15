@@ -171,3 +171,11 @@ csv_write(lobbyists_data, OUTPUT_PATH['LOBBYISTS_STORE'],
           ['CUID_lobbyist', 'lobbyist_id', 'SOPR_reports'])
 
 raw = read_file(DATASET_PATH_TO['LOBBYISTS'])
+firms_by_SOPR = map_SOPR_to_firm()
+processed_data = process_lobbyists(raw, lobbyists_store, firms_by_SOPR)
+
+fieldnames = [
+    "CUID_lobbyist", "CUID_employer", "lobbyist_id", "lobbyist_name",
+    "former_congressmen", "record_year"
+]
+csv_write(processed_data, OUTPUT_PATH['LOBBYISTS_DATA'], fieldnames)
