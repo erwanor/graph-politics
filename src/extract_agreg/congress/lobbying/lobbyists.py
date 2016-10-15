@@ -94,6 +94,9 @@ def generate_lobbyists():
 
     return (all_rows, lobbyists)
 
+
+def is_a_duplicate(tracking_store, key_to_check):
+    return tracking_store.has_key(key_to_check)
 # Overview:
 # 0. Map lobbyists LIDs (Lobbyist IDentifiers) to CUIDs (Cross-data Unique IDentifiers)
 # 1. Prepare the rows of the csv lobbyist store
@@ -101,3 +104,9 @@ def generate_lobbyists():
 # 3. Process the lobbyist data and detect connections between firms, lobbyists and SOPR reports
 # 4. Load that data into a CSV file
 ####
+
+lobbyists_data, lobbyists_store = generate_lobbyists()
+csv_write(lobbyists_data, OUTPUT_PATH['LOBBYISTS_STORE'],
+          ['CUID_lobbyist', 'lobbyist_id', 'SOPR_reports'])
+
+raw = read_file(DATASET_PATH_TO['LOBBYISTS'])
