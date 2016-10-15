@@ -74,6 +74,26 @@ def from_dataset_index_by(csv_file,
                 store[key] = [value]
     return store
 
+
+def generate_lobbyists():
+    """
+	Generate a mapping of LID to CUID and prepare rows to be written to csv.
+	Return a list of rows and a dictionnary.
+	"""
+    all_rows = []
+    lobbyists = {}
+    SOPR_store = from_dataset_index_by(DATASET_PATH_TO['LOBBYISTS'], 3, 0)
+    for LID in SOPR_store.keys():
+        CUID_lobbyist = str(uuid.uuid4())
+        lobbyists[LID] = CUID_lobbyist
+
+        values = SOPR_store[LID]
+        SOPR_store[LID] = ';'.join(values)
+        row = [CUID_lobbyist, LID, SOPR_store[LID]]
+        all_rows.append(row)
+
+    return (all_rows, lobbyists)
+
 # Overview:
 # 0. Map lobbyists LIDs (Lobbyist IDentifiers) to CUIDs (Cross-data Unique IDentifiers)
 # 1. Prepare the rows of the csv lobbyist store
