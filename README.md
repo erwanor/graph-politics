@@ -1,19 +1,19 @@
 # graph-politics
 
 
-A semantic network aggregating various datasources to represent the connections between US legislators - their assets, liabilities, campaign expenditures and supporters, funding networks and voting history - and private organizations such as corporations, lobbying agencies, 527 committees, [Super]PACs etc.
+A semantic network aggregating various data sources to represent the connections between US legislators - their assets, liabilities, campaign expenditures and supporters, funding networks, and voting history - and private organizations such as corporations, lobbying agencies, 527 committees, [Super]PACs etc.
 
 ### Data sources:
 
 The Federal Election Commission (FEC), the Center for Responsive Politics (CRP), OpenSecrets.org, Wikileaks, the US Government Open Data Initiative and the Internal Revenue Service (IRS).
 
-This is a non-exhaustive list that do no mention a certain numbers of public datasources for which I have built scrappers.
+This is a non-exhaustive list. There are other data sources for which I had to build scrapers in order to increase the graph's connectivity.
 
 #### Objectives and roadmap:
 
-The objectives of this project are to process, aggregate and centralize large amounts of data relating to US politics and the blur line separating public and private interest. Graph database such as Neo4j offer a data model that suits the real-world toppology of our object of study. It is of course possible to run queries against the database and attempt to extract interesting or unusual patterns (e.g cycles or paths). This could be used to demonstrate potential conflicts of interests for example. I plan to offer an hosted version of the graph with a graph visualisation tool. Contact me if you are interested in sponsoring this project.
+The objectives of this project are to process, aggregate and centralize large amounts of data relating to US politics and the blurred line separating public and private interest. Graph database such as Neo4j offers a data model that suits the real-world topology of our object of study. It is, of course, possible to run queries against the database and attempt to extract interesting or unusual patterns (e.g cycles or paths). This could be used to demonstrate potential conflicts of interests for example. I plan to offer a hosted version of the graph with a graph visualization tool. Contact me if you are interested in sponsoring this project.
 
-Moreover, this project is also ran as an experiment to validate or refute the following hypothesis: Is the traditional nomenclature that oppose Republicans to Democrats (and vice-versa) truly relevant? Or is it possible to clusterize politicians in factions that would better showcase the power dynamics at play in Congress? This is what we will try to figure out, "crunching" data about funding networks, voting history, (co-)sponsored bills and try to assess how much influence do lobbying agencies have over US politicians.
+Moreover, this project is also run as an experiment to validate or refute the following hypothesis: Is the traditional nomenclature that opposes Republicans to Democrats (and vice-versa) truly relevant? Or is it possible to cluster politicians in factions that would better showcase the power dynamics at play in Congress? This is what we will try to figure out, "crunching" data about funding networks, voting history, (co-)sponsored bills and try to assess how much influence do lobbying agencies have over US politicians.
 
 Later stage of this project will involve lots of data analysis that will be used to increase the depth and quality of our semantic network. For example, it could be interesting to use the Stanford CoreNLP library to classify the stances that lobbying agencies take with respect to certain bills or amendments. Even more so if we can simultaneously observe if a politician X who has been helped by a corporation Y through a 527 committee Z will conform to the desire of a lobbying agency A hired by the same company Y. And how frequently does this happen?
 
@@ -23,11 +23,11 @@ Once a dataset has been scrapped or downloaded, it must be preprocessed and aggr
 
 ### Datasets:
 
-When the parsers/transformers are running, the raw datasets should be available in the datasets/raw/ directory. You will notice that the current data/raw_data directory is empty. This is because Github has an upper bound (100Mb) on the filesize one can upload to a repository. You can find the raw datasets [here](http://fs.rely.io/public/32104/eazrae/data.tar.gz)
+When the parsers/transformers are running, the raw datasets should be available in the datasets/raw/ directory. You will notice that the current data/raw_data directory is empty. This is because Github has an upper bound (100Mb) on the filesize one can upload to a repository. You can find the raw datasets here
 
 ### Disclaimer:
 
-This is a toy-project I have started because I have an interest in graph databases, information retrieval and semantic networks. I will do my best-effort to accomodate reasonable feature requests but I provide no guarantees of execution.
+This is a toy project I have started because I have an interest in graph databases, information retrieval, and semantic networks. I will do my best effort to accommodate reasonable feature requests but I provide no guarantees of execution.
 
 ### Directory structure
 
