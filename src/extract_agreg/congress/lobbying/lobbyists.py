@@ -20,6 +20,37 @@ OUTPUT_PATH = {
     get_path(CRD_PATH, '/../../../../datasets/processed/lobbying/lobbyists_data.csv')
 }
 
+
+def create_lobbyist(cleaned_data, lobbyists_store, lobbying_firms):
+    """
+	Return a dictionnary of bundled data from the lobbying firms and lobbyists stores.
+	"""
+    SOPR = cleaned_data[0]
+    full_name = cleaned_data[2]
+    lobbyist_id = cleaned_data[3]
+
+    if lobbyists_store.has_key(lobbyist_id):
+        CUID = lobbyists_store[lobbyist_id]
+    else:
+        CUID = str(uuid.uuid4())
+
+    year = cleaned_data[4]
+    former_congressmen = cleaned_data[-1]
+
+    if lobbying_firms.has_key(SOPR) is True:
+        CUID_employer = lobbying_firms[SOPR]
+    else:
+        CUID_employer = 0
+
+    return {
+        'CUID_lobbyist': CUID,
+        'CUID_employer': CUID_employer,
+        'lobbyist_id': lobbyist_id,
+        'lobbyist_name': full_name,
+        'former_congressmen': former_congressmen,
+        'record_year': year
+    }
+
 # Overview:
 # 0. Map lobbyists LIDs (Lobbyist IDentifiers) to CUIDs (Cross-data Unique IDentifiers)
 # 1. Prepare the rows of the csv lobbyist store
