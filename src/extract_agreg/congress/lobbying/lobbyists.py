@@ -117,6 +117,22 @@ def csv_write(data_entries, OUTPUT_FILE, fieldnames=[]):
             writer.writerows(data_entries)
     return
 
+
+def map_SOPR_to_firm():
+    """
+	Map SOPR identifiers to a lobbying CUID.
+	Return a dictionnary.
+    """
+    firms = {}
+    with open(DATASET_PATH_TO['LOBBYING_FIRMS'], 'rb') as f:
+        reader = csv.reader(f, delimiter='%', quoting=csv.QUOTE_NONE)
+        for record in reader:
+            SOPR_reports = record[3].split(';')
+            CUID_firm = record[0]
+            for report_id in SOPR_reports:
+                firms[report_id] = CUID_firm
+    return firms
+
 def is_a_duplicate(tracking_store, key_to_check):
     return tracking_store.has_key(key_to_check)
 # Overview:
