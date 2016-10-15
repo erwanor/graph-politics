@@ -95,6 +95,28 @@ def generate_lobbyists():
     return (all_rows, lobbyists)
 
 
+def csv_write(data_entries, OUTPUT_FILE, fieldnames=[]):
+    """
+	Write processed data to a CSV file on disk.
+	"""
+    with open(OUTPUT_FILE, 'wb') as output:
+        if type(data_entries[0]) is dict:
+            writer = csv.DictWriter(
+                output,
+                fieldnames=fieldnames,
+                delimiter='%',
+                quoting=csv.QUOTE_NONE,
+                escapechar='\\')
+            writer.writeheader()
+            for entry in data_entries:
+                writer.writerow(entry)
+        else:
+            writer = csv.writer(
+                output, delimiter='%', quoting=csv.QUOTE_NONE, escapechar='\\')
+            writer.writerow(fieldnames)
+            writer.writerows(data_entries)
+    return
+
 def is_a_duplicate(tracking_store, key_to_check):
     return tracking_store.has_key(key_to_check)
 # Overview:
