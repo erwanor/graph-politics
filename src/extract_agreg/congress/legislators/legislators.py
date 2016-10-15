@@ -4,10 +4,10 @@ import uuid
 import csv
 
 CRD_PATH = os.path.dirname(os.path.realpath(__file__))
-CURRENT_LEGISLATORS = ''.join([CRD_PATH, '/../../datasets/raw/Legislators/CSV/legislators-current.csv'])
+CURRENT_LEGISLATORS = ''.join([CRD_PATH, '/../../../../datasets/raw/Legislators/CSV/legislators-current.csv'])
 
-OUTPUT_LEGISLATOR_DATA = ''.join([CRD_PATH, '/../../datasets/preprocessed/current_legislators.csv'])
-OUTPUT_UID_STORE_BY_BIO_UID = ''.join([CRD_PATH, '/../../datasets/preprocessed/legislators_BIO_UID_to_CUID.csv'])
+OUTPUT_LEGISLATOR_DATA = ''.join([CRD_PATH, '/../../../../datasets/processed/congress/legislators/list_114th.csv'])
+OUTPUT_UID_STORE_BY_BIO_UID = ''.join([CRD_PATH, '/../../../../datasets/preprocessed/map_legislators_114th_BUID_to_CUID.csv'])
 
 def chamber_name(abrv):
 	if abrv == "sen":
@@ -16,6 +16,11 @@ def chamber_name(abrv):
 		return "House of Representatives"
 	else:
 		return "Official"
+def party_name(abrv):
+    if abrv == "Democrat":
+        return "Democratic"
+    else:
+        return abrv
 
 def contains_digits(string):
 	if string == '':
@@ -33,7 +38,7 @@ def congressman(CUID, full_name, last_name, first_name, dob, sex, state, party, 
 		'last_name'        : last_name,
 		'dob'              : dob,
 		'sex'              : sex,
-		'party'            : party,
+		'party'            : party_name(party),
 		'state'            : state,
 		'chamber'          : chamber_name(chamber),
 		'CUID_legislator'  : CUID,
